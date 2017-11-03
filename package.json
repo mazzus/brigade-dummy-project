@@ -1,0 +1,21 @@
+{
+  "name": "brigade-dummy-project",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mazzus/brigade-dummy-project.git"
+  },
+  "author": "Marius Hamre Nordrik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mazzus/brigade-dummy-project/issues"
+  },
+  "homepage": "https://github.com/mazzus/brigade-dummy-project#readme",
+  "dependencies": {
+  }
+}
