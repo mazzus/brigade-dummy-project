@@ -1,4 +1,4 @@
-const { events, Job } = require("brigadier");
+const { events, Job, Group } = require("brigadier");
 
 console.log("Brigade.js is ");
 events.on("exec", () => {
@@ -7,15 +7,15 @@ events.on("exec", () => {
 
 events.on("custom_event", (e, p) => {
   console.log("Custom event triggered!");
-  const hello = new Job("hello", "alpine:3.6")
-  hello.tasks = [
-    "ls src/ -al"
-  ]
-  hello.run().then(res => {
-    console.log("------------------- result data -------------------");
-    console.log(res.data)
-    console.log("-------------------/result data -------------------");
-  });
+  const npmInstall = new Job("npmInstall", "node:6.11-alpine", ["cd src/", "npm install"]);
+
+  const runNode = new Job("runNode", "node:6.11-alpine", ["node src/index.js"]);
+
+  const deleteFiles = new Job("deleteFiles", "alpine:3.6", ["rm -rf src/"]);
+
+  const confirmDelete = new Job("confirmDelete", "alpine:3.6", ["ls -al"]);
+  
+  Group.runEach([npmInstall, runNode, deleteFiles, confirmDelete]);
 });
 
 events.on("push", (e, p) => {

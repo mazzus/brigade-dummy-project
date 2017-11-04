@@ -16,6 +16,5 @@
     "url": "https://github.com/mazzus/brigade-dummy-project/issues"
   },
   "homepage": "https://github.com/mazzus/brigade-dummy-project#readme",
-  "dependencies": {
-  }
+  "dependencies": {}
 }
