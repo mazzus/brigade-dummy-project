@@ -7,15 +7,21 @@ events.on("exec", () => {
 
 events.on("custom_event", (e, p) => {
   console.log("Custom event triggered!");
-  const npmInstall = new Job("npmInstall", "node:6.11-alpine", ["cd src/", "npm install"]);
+  const npmInstall = new Job("npm-install", "node:6.11-alpine", ["cd src/", "npm install"]);
 
-  const runNode = new Job("runNode", "node:6.11-alpine", ["node src/index.js"]);
+  const runNode = new Job("run-node", "node:6.11-alpine", ["node src/src/index.js"]);
 
-  const deleteFiles = new Job("deleteFiles", "alpine:3.6", ["rm -rf src/"]);
+  const deleteFiles = new Job("delete-files", "alpine:3.6", ["rm -rf src/*"]);
 
-  const confirmDelete = new Job("confirmDelete", "alpine:3.6", ["ls -al"]);
-  
-  Group.runEach([npmInstall, runNode, deleteFiles, confirmDelete]);
+  const confirmDelete = new Job("confirm-delete", "alpine:3.6", ["ls src/ -al"]);
+
+  Group.runAll([npmInstall, runNode, deleteFiles, confirmDelete])
+    .then(res => {
+      console.log(res);
+    })
+    .catch(error => {
+      console.error({error});
+    });
 });
 
 events.on("push", (e, p) => {
